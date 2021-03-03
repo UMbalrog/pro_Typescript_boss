@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     测试
+    <el-button class="ce">测试</el-button>
   </div>
 </template>
 
@@ -13,3 +14,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.ce{
+  background-color: $danger-color;
+}
+</style>
