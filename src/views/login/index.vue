@@ -29,7 +29,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Form } from 'element-ui'
-import { login } from '@/api/index.ts'
+import { login } from '@/api/user.ts'
 
 export default Vue.extend({
   name: 'LoginIndex',

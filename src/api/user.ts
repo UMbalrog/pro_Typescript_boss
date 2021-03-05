@@ -17,3 +17,11 @@ export const login = (data: User) => {
     data: qs.stringify(data)
   })
 }
+
+export const getInfo = () => {
+  return request({
+    method: 'GET',
+    url: '/front/user/getInfo',
+    headers: { 'content-type': 'application/x-www-form-urlencoded' }
+  })
+}

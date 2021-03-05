@@ -74,7 +74,7 @@ const router = new VueRouter({
 
 // 全局路由前置拦截
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(url => url.meta.requiresAuth) && !store.state.user) next({ path: '/login' })
+  if (to.matched.some(url => url.meta.requiresAuth) && !store.state.user) next({ path: '/login', query: { redirect: to.fullPath } }) // 把登录后需要返回页传递
   else next()
 })
 

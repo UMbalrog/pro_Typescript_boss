@@ -1,4 +1,5 @@
 import axios from 'axios'
+import store from '../store'
 
 const instance = axios.create({
   baseURL: '/',
@@ -8,6 +9,11 @@ const instance = axios.create({
 instance.interceptors.request.use(
   config => {
     // console.log(config);
+    const { user } = store.state
+    if (user && user.access_token) {
+      config.headers.Authorization = user.access_token
+    }
+
     return config
   },
   error => {
