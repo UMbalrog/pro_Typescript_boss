@@ -45,7 +45,7 @@ instance.interceptors.request.use(
   }
 )
 let isRfreshing = false // 控制刷新状态
-let requests: any[] = [] // 存储刷新 token 期间过来的 401 请求
+let requests: Function[] = [] // 存储刷新 token 期间过来的 401 请求
 // 响应拦截器
 instance.interceptors.response.use(
   response => {
