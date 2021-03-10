@@ -24,8 +24,7 @@
       <el-table
         :data="roles"
         style="width: 100%"
-        v-loading="loading"
-      >
+        v-loading="loading">
         <el-table-column
           prop="id"
           label="编号"
@@ -83,13 +82,25 @@
         </el-table-column>
       </el-table>
     </el-card>
-
+    <el-dialog
+      :title="isEdit ? '编辑角色' : '添加角色'"
+      :visible.sync="dialogVisible"
+      width="50%">
+      <create-or-edit
+        v-if="dialogVisible"
+        :roleId="roleId"
+        :isEdit="isEdit"
+        @success="onSuccess"
+        @cancel="dialogVisible = false"
+      ></create-or-edit>
+    </el-dialog>
   </div>
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import { getRoles } from '@/api/role'
+import { getRoles, deleteRole } from '@/api/role'
 import { Form } from 'element-ui'
+import CreateOrEdit from './CreateOrEdit.vue'
 
 export default Vue.extend({
   name: 'RoleList',
@@ -101,8 +112,14 @@ export default Vue.extend({
         size: 20,
         name: ''
       }, // 查询条件
-      loading: false
+      loading: false,
+      dialogVisible: false,
+      isEdit: false, // 是否编辑
+      roleId: null
     }
+  },
+  components: {
+    CreateOrEdit
   },
   created () {
     this.loadRoles()
@@ -120,8 +137,33 @@ export default Vue.extend({
     onReset () {
       (this.$refs.form as Form).resetFields()
       this.loadRoles()
+    },
+    handleAdd () {
+      this.dialogVisible = true
+    },
+    onSuccess () {
+      this.dialogVisible = false // 关闭对话框
+      this.loadRoles()
+    },
+    handleEdit (role: any) {
+      this.isEdit = true
+      this.roleId = role.id
+      this.dialogVisible = true
+    },
+    async handleDelete (role: any) {
+      try {
+        await this.$confirm(`确认删除角色：${role.name}？`, '删除提示')
+        await deleteRole(role.id)
+        this.$message.success('删除成功')
+        this.loadRoles()
+      } catch (err) {
+        if (err && err.response) {
+          this.$message.error('删除失败，请重试')
+        } else {
+          this.$message.info('取消删除')
+        }
+      }
     }
-    // handleAdd () { }
   }
 })
 </script>

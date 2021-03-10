@@ -6,7 +6,7 @@ import qs from 'qs'
 
 function redirectLogin () { // 未登录直接去登录页
   router.push({
-    path: '/logon',
+    path: '/login',
     query: {
       // 登录完跳转回当前页的地址
       redirect: router.currentRoute.fullPath
