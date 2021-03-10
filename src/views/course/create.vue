@@ -1,17 +1,17 @@
 <template>
-  <div class="course">
-    <course-list />
+  <div class="course-create">
+    <create-or-update />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import CourseList from './components/CourseList.vue'
+import CreateOrUpdate from './components/CreateOrUpdate.vue'
 
 export default Vue.extend({
-  name: 'CourseIndex',
+  name: 'CourseCreate',
   components: {
-    CourseList
+    CreateOrUpdate
   }
 })
 </script>
