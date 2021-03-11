@@ -9,6 +9,13 @@
         label-width="70px"
         label-position="left"
         :model="filterParams">
+        <el-form-item label="测试" prop="time">
+          <el-time-picker
+            v-model="test1"
+
+            placeholder="任意时间点">
+          </el-time-picker>
+        </el-form-item>
         <el-form-item label="课程名称" prop="courseName">
           <el-input v-model="filterParams.courseName"></el-input>
         </el-form-item>
@@ -126,6 +133,7 @@ export default Vue.extend({
   name: 'CourseList',
   data () {
     return {
+      test1: new Date(),
       filterParams: {
         currentPage: 1,
         pageSize: 10,
